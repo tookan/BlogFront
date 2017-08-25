@@ -1,0 +1,85 @@
+<div class="row">
+
+    <div class="col-md-8 col-md-offset-2">
+        <h2>COMMENTS</h2>
+        <button class="btn btn-group-sm" (click)="newcom()">+ADD</button>
+        <div class="row">
+            <label>Search for user's comments</label>
+            <input name="search" (keyup)="searchTerm.next($event.target.value)"  type="search" />
+            <ul>
+                <li (click)="this.user.next(result.id)"  *ngFor="let result of results | slice:0:4 " >
+                    {{ result.name }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>note id</th>
+                <th>text</th>
+                <th>date</th>
+            </tr>
+            </thead>
+            <tr (click)="currentCom = comment; editFlag = true" *ngFor="let comment of comments">
+                <td >{{comment.id}}</td>
+                <td [routerLink]="['/note/',comment.note_id]">{{comment.note_id}}</td>
+                <td>{{comment.body}}</td>
+                <td>{{comment.date}}</td>
+            </tr>
+            <tr *ngIf="user && comments == []"><td><h4>{{user.name}} didn't posted commentaries yet</h4></td><tr>
+        </table>
+</div>
+        <div class="row">
+            <button *ngIf="this.offset.value > 1 " (click)="this.offset.next(this.offset.value - 1)"
+                    class="btn btn btn-sm">Previous
+            </button>
+            <button *ngIf="this.offset.value < pagesCount && pagesCount > 1" (click)="this.offset.next(this.offset.value + 1)" class="btn btn-primary btn-sm">Next</button>
+        </div>
+
+<div id="comm_edit" *ngIf="editFlag && currentCom" class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h4>Comment with id:{{currentCom.id}} editing</h4>
+        <form (ngSubmit)="updateComment()">
+            <div  class="form-group">
+                <label >Note id</label>
+                <input name="note_id" class="form-control" type="text" [(ngModel)]="currentCom.note_id">
+            </div>
+            <div  class="form-group">
+                <label >Text</label>
+                <input name="body" class="form-control" type="text" [(ngModel)]="currentCom.body">
+            </div>
+
+            <button class="btn btn-success" (click)="editFlag = false">Cancel</button>
+            <button class="btn btn-danger"  type="submit">CHANGE</button>
+        </form>
+        <button class="btn btn-danger" type="button" (click)="deleteComment()">DELETE</button>
+    </div>
+</div>
+
+<div id="comm_create" *ngIf="createFlag && currentCom" class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h4>Create new comment here</h4>
+        <form (ngSubmit)="createComment()">
+            <div  class="form-group">
+                <label >Note id:</label>
+                <input name="note_id" class="form-control" type="text" [(ngModel)]="currentCom.note_id">
+            </div>
+
+            <div  class="form-group">
+                <label >User id:</label>
+                <input name="note_id" class="form-control" type="text" [(ngModel)]="currentCom.user_id">
+            </div>
+            <div  class="form-group">
+                <label >Text: </label>
+                <input name="body" class="form-control" type="text" [(ngModel)]="currentCom.body">
+            </div>
+            <button class="btn btn-success" (click)="createFlag = false">Cancel</button>
+            <button class="btn btn-danger" type="submit">CREATE</button>
+        </form>
+    </div>
+</div>
+

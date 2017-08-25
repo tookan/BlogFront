@@ -1,0 +1,39 @@
+<!--standart mode-->
+<div *ngIf="updateResponseFlag" class="container note" [ngSwitch]="editFlag">
+    <div *ngSwitchCase="false">
+
+        <img  src="{{note.img || '/assets/img/default.png'}}" width="100%" height="353">
+        <div  class="col-xs-12 head">
+            <h1 >{{note.title}} </h1> <p id="note-username">Created by {{note.username}} at {{note.date}}</p>
+        </div>
+        <div [innerHtml]="note.body"  class="col-md-12 note-body"></div>
+        <div *ngIf="loginedUser && loginedUser.username == note.username">
+            <button class="btn btn-warning" (click)="editFlag=true">Edit</button>
+        </div>
+    </div>
+    <!-- editing mode-->
+    <div class="container editing" *ngSwitchCase="true">
+        <div class="img-reload">
+            <label for="img-edit">
+        <img src="{{note.img || '/assets/img/default.png'}}" width="100%" height="350">
+                <h4>Click on photo to upload new </h4>
+            </label>
+            <input (change)="setImage($event)"  id="img-edit" type="file" />
+        </div>
+        <div class="row title">
+            <input [(ngModel)]="note.title" id="title-edit" placeholder="title">
+        </div>
+        <div class="row">
+             <ckeditor  [(ngModel)]="note.body" id="body-edit"></ckeditor>
+        </div>
+        <div *ngIf="loginedUser && loginedUser.username == note.username">
+            <div class="btn-group">
+            <button class="btn btn-success" (click)="sendUpdated()">Save</button>
+                <button class="btn btn-primary" type="reset" (click)="editFlag = false">Close</button>
+        </div>
+    </div>
+    <div class="col-md-4 alert alert-danger" *ngFor="let error of err" >{{error}}</div>
+</div>
+
+
+<app-comments *ngIf="loadFlag" [noteId]="note.id"></app-comments>

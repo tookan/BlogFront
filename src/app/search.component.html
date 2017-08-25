@@ -1,0 +1,7 @@
+
+<input (keyup)="searchTerm.next($event.target.value) " placeholder="Search by articles">
+<ul *ngIf="results">
+    <li (click)="results = []" class="search-links" *ngFor="let result of results " [routerLink]="['/note',result.id]">
+           {{ result.title}}
+    </li>
+</ul>

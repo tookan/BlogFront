@@ -1,0 +1,36 @@
+
+    <div class="col-md-5">
+        <label for="avatar">Upload your profile picture: </label>
+        <input (change)="setAvatar($event)" id="avatar" name="avatar" type="file">
+    </div>
+    <div class="col-md-6">
+        <form class="form-horizontal" (ngSubmit)="sendData()">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="last_name">Type your last name:</label>
+                    <input [(ngModel)]="profile.last_name" id="last_name" name="last_name" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="first_name">Type your name:</label>
+                    <input [(ngModel)]="profile.first_name" id="first_name"  name="first_name" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="middle_name">Type your middle name:</label>
+                    <input [(ngModel)]="profile.middle_name" id="middle_name" name="middle_name" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="about">Describe yourself:</label>
+                    <textarea [(ngModel)]="profile.about" id="about" name="about" class="form-control" type="text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your contact email:</label>
+                    <input [(ngModel)]="profile.email" id="email" name="email" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">UPDATE</button>
+                    <button class="btn btn-toolbar" type="button" (click)="close.emit(true)">X</button>
+                </div>
+            </div>
+
+        </form>
+    </div>

@@ -1,0 +1,69 @@
+<!-- user info -->
+<div *ngIf="userProfile"  class="container user-info">
+    <h4>{{username}}</h4>
+    <div class="row ">
+        <div class="col-md-4 img-user">
+            <img src="{{ userProfile.avatar || '/assets/img/default-user.png'}}" height="250px" width="250px">
+        </div>
+        <div class="col-md-8">
+            <p class="name" >{{userProfile.last_name}}</p>
+            <p class="name">{{userProfile.first_name}}</p>
+            <p class="name">{{userProfile.middle_name}}</p>
+            <div class="col-md-10 col-md-offset-1 about">
+                {{ userProfile.about}}
+            </div>
+        </div>
+        <button *ngIf="username && loginedUser && username === loginedUser.username"  class="btn btn-info" (click)="editFlag = true">edit profile</button>
+    </div>
+</div>
+<!--if notes[] empty-->
+<h1 *ngIf="!notes">There are no notes here</h1>
+<!--notes output -->
+<div *ngIf="notes" class="container notes">
+    <div class="row ">
+        <div *ngFor="let note of notes" class="col-md-4 note">
+            <div class="row" [routerLink]="['/note',note.id]">
+                <div class="col-md-4">
+                    <img src="{{note.img || '/assets/img/default-small.png'}}">
+                </div>
+                <div class="col-md-8">
+                    <div class="row title">
+                        <h2>{{note.title}}</h2>
+                    </div>
+                </div>
+            </div>
+            <button *ngIf=" loginedUser && loginedUser.username == note.username  "
+                    class="btn btn-danger delete-btn"
+                    (click)="deletePreventFlag = true; currentTitle = note.title; currentId = note.id">x
+            </button>
+        </div>
+    </div>
+
+    <div class="row buttons">
+        <div class="col-md-12">
+            <button class="btn btn-sm btn-secondary" *ngFor="let count of counts"
+                    [routerLink]="['/personal_page/',username,count]">{{count}}
+            </button>
+        </div>
+    </div>
+</div>
+<!-- window that asking before deleting-->
+<div id="deleteAcception" class="row" *ngIf="deletePreventFlag">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <p> Are you sure want to delete '{{currentTitle}}' note?</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-2">
+            <button (click)="deleteNote();deletePreventFlag=false" class="btn btn-success">Yep!</button>
+        </div>
+        <div class="col-md-2 col-md-offset-4">
+            <button (click)="deletePreventFlag = false" class="btn btn-warning">Nope</button>
+        </div>
+    </div>
+</div>
+<div [hidden]="!editFlag" class="row" id="profile-edit">
+<profile-edit [profile]="userProfile" (close)="editFlag = $event.value"></profile-edit>
+</div>
+

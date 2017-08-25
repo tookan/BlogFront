@@ -1,0 +1,26 @@
+input{
+    float: inherit;
+    margin-top:  6pt;
+    margin-left: 25%;
+    z-index: 2;
+}
+ul{
+    position: absolute;
+    z-index: 4;
+    margin-left: 20%;
+   border: 1pt;
+    border-color: black;
+    width: 120px;
+}
+li{
+    list-style-type: none;
+
+}
+.search-links{
+    background-color: #f9f9f9;
+    text-align: center;
+    font-size: medium;
+    border: solid;
+    border-width: 1px;
+width: 120px;
+}

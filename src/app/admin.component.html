@@ -1,0 +1,16 @@
+<div *ngIf="loginedUser && loginedUser.status === 'admin'" class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-4">
+            <button class="btn btn-group" [routerLink]="['users_admin']">
+                USERS
+            </button>
+            <button class="btn btn-group" [routerLink]="['comments_admin']">
+                COMMENTS
+            </button>
+            <button class="btn btn-group" [routerLink]="['notes_admin']">
+                NOTES
+            </button>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

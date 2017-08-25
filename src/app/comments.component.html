@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Comments</h2>
+    <div class="row com-input">
+        <div class="col-md-5">
+            <form *ngIf="loginedUser" class="form-horizontal" (ngSubmit)="sendComment()">
+                <div class="form-group-lg">
+                    <label for="commentBody">Leave your comment here</label>
+                    <input class="form-control" name="body" type="text" id="commentBody" [(ngModel)]="comment.body">
+                </div>
+                <button class="btn btn-primary" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 comment" *ngFor="let comment of comments">
+            <b><p [routerLink]="['/personal_page/',comment.name,1]">{{comment.name}}</p></b>
+            <p>{{comment.date}}</p>
+            <div class="com-body">{{comment.body}}</div>
+        </div>
+    </div>
+</div>
+

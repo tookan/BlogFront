@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2>NOTES</h2>
+        <button class="btn btn-group-sm" (click)="newno()">+ADD</button>
+        <div class="row">
+            <label>Search for user's notes (type n: to search in notes )</label>
+            <input name="search" (keyup)="searchTerm.next($event.target.value)"  type="search" />
+            <ul>
+                <li (click)="currentUser.next(result)"  *ngFor="let result of resultsUsers | slice:0:4 " >
+                   user: {{ result.name }} with id: {{result.id}}
+                </li>
+                <li (click)="this.notes = [];this.notes.push(result)"  *ngFor="let result of resultsNotes | slice:0:4 " >
+                   note with title: {{ result.title }} and id: {{result.id}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Username</th>
+                <th>title</th>
+                <th>date</th>
+            </tr>
+            </thead>
+            <tr (click)="currentNote = note; editFlag = true" *ngFor="let note of notes ">
+                <td >{{note.id}}</td>
+                <td>{{note.username}}</td>
+                <td>{{note.title}}</td>
+                <td>{{note.date}}</td>
+            </tr>
+        </table>
+        <p *ngIf="notes.length < 1">There are no results</p>
+        <div class="row">
+            <button *ngIf="this.offset.value > 1" (click)="this.offset.next(this.offset.value - 1)"
+                    class="btn btn btn-sm">Previous
+            </button>
+            <button *ngIf="this.offset.value < pagesCount" (click)="this.offset.next(this.offset.value + 1)" class="btn btn-primary btn-sm">Next</button>
+        </div>
+    </div>
+</div>
+
+<!--edit mode -->
+<div class="row editing" *ngIf="editFlag">
+    <div class="col-xs-12 img-reload">
+        <label for="img-edit">
+            <img src="{{currentNote.img || '/assets/img/default.png'}}" width="100%" height="350">
+            <h4>Click on photo to upload new </h4>
+        </label>
+        <input (change)="setImage($event)"  id="img-edit" type="file" />
+    </div>
+    <div class="row title">
+        <input [(ngModel)]="currentNote.title" id="title-edit">
+    </div>
+    <div class="row body">
+         <ckeditor [(ngModel)]="currentNote.body" id="body-edit"></ckeditor>
+    </div>
+    <div class="alert-danger" *ngFor="let error of errs" > {{error}}</div>
+    <div class="row">
+        <button class="btn btn-success" (click)="sendUpdated()">Save</button>
+        <button class="btn btn-danger" (click)="delete()">Delete</button>
+        <button class="btn btn-primary" (click)="editFlag = false">Close</button>
+    </div>
+</div>
+<!-- create mode -->
+<div class="row creating" *ngIf="createFlag">
+    <div class="form-group">
+        <input (change)="setImage($event)"  id="img-create" type="file" />
+    </div>
+    <div class="form-group title">
+        <input [(ngModel)]="currentNote.title" id="title-create" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <label>Article body:</label>
+         <ckeditor [(ngModel)]="currentNote.body" id="body-create"> </ckeditor>
+    </div>
+    <div class="row">
+        <label>Input user id: </label>
+        <input type="text" id="user_id" [(ngModel)]="currentNote.user_id">
+    </div>
+    <div class="alert-danger" *ngFor="let error of errs" > {{error}}</div>
+    <div class="row">
+        <button class="btn btn-success" (click)="createNote()">Save</button>
+        <button class="btn btn-danger" (click)="delete()">Delete</button>
+        <button class="btn btn-primary" (click)="createFlag = false">Close</button>
+    </div>
+</div>

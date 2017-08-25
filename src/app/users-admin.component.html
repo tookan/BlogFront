@@ -1,0 +1,87 @@
+<div *ngIf="loginedUser" class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2>USERS</h2>
+        <button class="btn btn-group-sm" (click)="createFlag = true; currentUser = {}">+ADD</button>
+    </div>
+        <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th (click)="sortFunc('id')">id</th>
+                <th (click)="sortFunc('name')">user name</th>
+                <th>status</th>
+                <th>about</th>
+                <th>avatar</th>
+                <th>Articles</th>
+            </tr>
+            </thead>
+            <tr *ngFor="let user of users">
+                <td (click)="current.user = user; changeFlag = true">{{user.id}}</td>
+                <td (click)="editFlag = true; currentUser=user">{{user.name}}</td>
+                <td>{{user.status}}</td>
+                <td>{{user.about}}</td>
+                <td><img width="100" height="100" src="{{user.avatar || '/assets/img/default-user.png'}} "></td>
+                <td (click)="notesFlag = true" [routerLink]="['/panel/notes_admin/']" [queryParams]="user">{{user.name}}'s articles</td>
+            </tr>
+        </table>
+        </div>
+        <div class="row">
+            <button *ngIf="this.offset.value > 1" (click)="this.offset.next(this.offset.value - 1)"
+                    class="btn btn btn-sm">Previous
+            </button>
+            <button (click)="this.offset.next(this.offset.value + 1)" class="btn btn-primary btn-sm">Next</button>
+        </div>
+    </div>
+<!-- modal window -->
+<div id="user-edit" *ngIf="editFlag && currentUser || createFlag && currentUser" class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h4>{{currentUser.name}}</h4>
+        <div class="col-md-10 col-md-offset-1">
+            <div class="form-group">
+                <label>Username</label>
+                <input name="name" class="form-control" type="text" [(ngModel)]="currentUser.name">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input name="email" class="form-control" type="text" [(ngModel)]="currentUser.email">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <input name="status" class="form-control" type="text" [(ngModel)]="currentUser.status">
+            </div>
+            <div class="form-group">
+                <label>About</label>
+                <input name="about" class="form-control" type="text" [(ngModel)]="currentUser.about">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input name="password" class="form-control" type="text" [(ngModel)]="currentUser.password">
+            </div>
+            <div class="form-group">
+                <label>Real first name</label>
+                <input name="first_name" class="form-control" type="text" [(ngModel)]="currentUser.first_name">
+            </div>
+            <div class="form-group">
+                <label>Real middle name</label>
+                <input name="middle_name" class="form-control" type="text" [(ngModel)]="currentUser.middle_name">
+            </div>
+            <div class="form-group">
+                <label>Real last name</label>
+                <input name="last_name" class="form-control" type="text" [(ngModel)]="currentUser.last_name">
+            </div>
+            <div class="form-group">
+                <label>Avatar</label>
+                <input name="avatar" class="form-control" type="file" (change)="setAvatar($event)">
+            </div>
+            <div class="col-sm-5 alert-danger" *ngFor="let err of errs ">{{err}}</div>
+            <button class="btn btn-success" (click)="editFlag = false; currentUser = {}; avatar = null; createFlag = false ">Cancel</button>
+            <div class="btn-group-sm" *ngIf="editFlag">
+                <button  class="btn btn-danger" (click)="updateUser()">CHANGE</button>
+                <button class="btn btn-danger" type="button" (click)="deleteUser()">DELETE</button>
+            </div>
+            <button *ngIf="createFlag" class="btn btn-warning" (click)="createUser()">CREATE</button>
+        </div>
+
+    </div>
+</div>
+

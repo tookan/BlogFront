@@ -1,0 +1,8 @@
+.loginform, .username{
+    float: inherit;
+    margin-top:  5pt;
+    margin-left: 25%;
+}
+.logined{
+    font-size: 14pt;
+}

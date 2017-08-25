@@ -1,0 +1,26 @@
+
+<div class="container notes">
+    <div class="row">
+    <div *ngFor="let note of notes" class="col-md-4 note" >
+       <div class="row" [routerLink]="['/note',note.id]">
+        <div class="col-md-4">
+            <img src="{{note.img || '/assets/img/default-small.png'}} ">
+        </div>
+        <div class="col-md-8">
+            <div class="row title">
+                <h2>{{note.title}}</h2>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-xs-12 space"></div>
+    <div class="row buttons" >
+        <div class="col-md-12">
+            <button [routerLink]="['/all/page',count]" class="btn btn-sm btn-secondary" *ngFor="let count of counts">{{count}}
+            </button>
+        </div>
+    </div>
+</div>
+
+

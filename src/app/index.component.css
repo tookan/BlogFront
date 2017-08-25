@@ -1,0 +1,27 @@
+h2{
+    text-align: center;
+}
+.container
+{
+    width: 100%;
+    height: 530px;
+}
+.note {
+    position:relative;
+    height: 300px;
+    margin-top: 5%;
+    border-right: solid;
+    border-width: 3px;
+    border-right-color: #636b6f ;
+}
+
+.buttons{
+    position: relative;
+}
+.row.body {
+    font-family: "Yu Gothic UI Semibold";
+    font-size: large;
+}
+.space {
+    height: 12px;
+}

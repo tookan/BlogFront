@@ -1,0 +1,52 @@
+
+<div class="col-md-4 col-md-offset-4">
+<form (ngSubmit)="register()">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" required class="form-control" id="username" name="name" [(ngModel)]=" user.name">
+    </div>
+    <div class="form-group">
+        <label for="email">Email address:</label>
+
+        <input type="email" class="form-control" id="email"  name="email" [(ngModel)]=" user.email">
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+
+        <input type="password" class="form-control" id="password" name="pasword"   [(ngModel)]=" user.password">
+    </div>
+    <div class="form-group">
+        <label for="repeat_pass">Repeat password:</label>
+
+        <input type="password" class="form-control" id="repeat_pass"  name="pass_repeat" [(ngModel)]=" user.pass_repeat">
+    </div>
+    <div class="form-group">
+        <label for="last_name">Type your last name:</label>
+        <input id="last_name" class="form-control" type="text"  name="last_name" [(ngModel)]=" user.last_name">
+    </div>
+    <div class="form-group">
+        <label for="name">Type your name first name:</label>
+        <input id="name" class="form-control" type="text" name="first_name"  [(ngModel)]=" user.first_name">
+    </div>
+    <div class="form-group">
+        <label for="middle_name">Type your middle name:</label>
+        <input id="middle_name" class="form-control" type="text" name="middle_name"  [(ngModel)]=" user.middle_name">
+    </div>
+    <div class="form-group">
+        <label for="about">Describe yourself:</label>
+        <textarea id="about" class="form-control" type="text" name="about"  [(ngModel)]=" user.about"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="avatar"> Upload your avatar</label>
+        <input type="file" class="form-control" id="avatar"  (change)="setImage($event)">
+    </div>
+    <div class="row errors">
+    <div>
+        <div *ngFor="let err of responErr" class="col-md-6 alert alert-warning">
+            {{err}}
+        </div>
+    </div>
+</div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+</div>
