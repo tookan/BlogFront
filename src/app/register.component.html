@@ -31,7 +31,7 @@
     <div class="form-group">
         <label for="middle_name">Type your middle name:</label>
         <input id="middle_name" class="form-control" type="text" name="middle_name"  [(ngModel)]=" user.middle_name">
-    </div>
+    </div>g
     <div class="form-group">
         <label for="about">Describe yourself:</label>
         <textarea id="about" class="form-control" type="text" name="about"  [(ngModel)]=" user.about"></textarea>
@@ -50,4 +50,4 @@
     <button type="submit" class="btn btn-success">Submit</button>
 </form>
 </div>
-<div class="col-md-8 col-md-offset-2 alert alert-success">REGISTERED!</div>
+<div class="col-md-8 col-md-offset-2 alert alert-success" *ngIf="responseFlag">REGISTERED!</div>

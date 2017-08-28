@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit{
     img: File;
     user = new UserReg();
     responErr: string[] = [];
-    responseFlag = true;
+    responseFlag = false;
 
     constructor(protected userServ: UserService) {
     }
