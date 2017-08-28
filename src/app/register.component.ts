@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit{
     img: File;
     user = new UserReg();
     responErr: string[] = [];
+    responseFlag = true;
 
     constructor(protected userServ: UserService) {
     }
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit{
     register() {
     this.userServ.register( this.user, this.img)
 .map(response => response)
-            .subscribe(response => window.location.href = 'http://localhost:4200/' ,
+            .subscribe( () => this.responseFlag = true ,
                 error => {
                 this.responErr = [];
                 const errors  = error.json();
